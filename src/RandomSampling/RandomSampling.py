@@ -21,7 +21,7 @@ def lhs_sampling(num_samples, ranges, log_scale_vars, output_csv):
 
     columns = ['fracture_perm', 'bentonite_dry_density', 'pressure_grad', 'bentonite_pyrite_factor', 'granite_pyrite_factor', 'intrusion_range', 'mixing_ratio']
     df = pd.DataFrame(scaled_sample, columns=columns)
-    df.to_csv(f'../output/{output_csv}', index=False, header=False)
+    df.to_csv(f'./output/{output_csv}', index=False, header=False)
 
 
 if __name__ == "__main__":
