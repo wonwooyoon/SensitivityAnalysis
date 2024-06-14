@@ -3,7 +3,6 @@ import csv
 import subprocess
 import h5py
 import glob
-import os
 
 
 class RatioEquilibrium:
@@ -56,7 +55,7 @@ class RatioEquilibrium:
 
         bash_code = """
 #!/bin/bash
-mkdir -p ./pflotran_output
+mkdir -p ./src/RatioCalculation/output
 
 for infile in ./src/RatioCalculation/output/ratio_calculation_*.in; do
   echo "Running pflotran on $infile..."
@@ -64,9 +63,7 @@ for infile in ./src/RatioCalculation/output/ratio_calculation_*.in; do
 
 done
 
-find ./src/RatioCalculation/output -type f -name "ratio_calculation_*" ! -name "*.in" -exec mv {} ./pflotran_output/ \;
-
-echo "All simulations completed and results moved to ./pflotran_output/"
+echo "All simulations completed and results moved to ./src/RatioCalculation/output/"
 """
 
         subprocess.run(['bash', '-c', bash_code], check=True)
@@ -100,7 +97,7 @@ if __name__ == '__main__':
 
     ratio_dir = './src/RandomSampling/output/lhs_sampled_data.csv'
     default_script_dir = './src/RatioCalculation/input/PFLOTRAN_mixing.in'
-    ratio_results_dir = './src/RatioCalculation/pflotran_output'
+    ratio_results_dir = './src/RatioCalculation/output'
     components = ['pH', 'pe', 'Al+++', 'CO3--', 'Ca++', 'Cl-', 'Fe++', 'H4(SiO4)', 'K+', 'Mg++', 'Na+', 'SO4--', 'UO2++']
     
     ratio_calculation = RatioEquilibrium(ratio_dir, default_script_dir, ratio_results_dir)
