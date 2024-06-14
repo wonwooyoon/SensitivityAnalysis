@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../SensitivityAnalysis/.idea/SensitivityAnalysis.iml" filepath="$PROJECT_DIR$/../SensitivityAnalysis/.idea/SensitivityAnalysis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SensitivityAnalysis.iml" filepath="$PROJECT_DIR$/.idea/SensitivityAnalysis.iml" />
     </modules>
   </component>
 </project>

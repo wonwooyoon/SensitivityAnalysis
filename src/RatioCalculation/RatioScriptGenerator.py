@@ -1,17 +1,20 @@
 import numpy as np
 import csv
 import subprocess
+import h5py
 import glob
-from concurrent.futures import ProcessPoolExecutor
-
+import os
 
 
 class RatioEquilibrium:
 
-    def __init__(self, ratio_dir, default_script_dir):
+    def __init__(self, ratio_dir, default_script_dir, ratio_result_dir):
         self.ratio_dir = ratio_dir
         self.default_script_dir = default_script_dir
+        self.ratio_result_dir = ratio_result_dir
         self.ratios = None
+        self.dicData = {}
+        self.concentration = None
 
     def write_script(self):
 
@@ -35,7 +38,7 @@ class RatioEquilibrium:
             if ratio_2_target is not None:
                 lines[ratio_2_target] = f'POROSITY {self.ratios[i, 1]}\n'
 
-            with open(f'./output/ratio_calculation_{i}.in', 'w') as file:
+            with open(f'{self.ratio_result_dir}/ratio_calculation_{i}.in', 'w') as file:
                 file.writelines(lines)
 
     def read_ratio(self):
@@ -49,27 +52,63 @@ class RatioEquilibrium:
         self.ratios[:, 0] = data[:, -1]
         self.ratios[:, 1] = 1 - data[:, -1]
 
-    def run_simulation(self, infile):
-        subprocess.run(['mpirun', '-n', '1', '$PFLOTRAN_DIR/src/pflotran/pflotran', '-input_prefix', f"{infile[:-3]}"], check=True)
-        subprocess.run(['mv', f"{infile[:-3]}.*", './pflotran_output/'], check=True)
+    def run_pflotran(self):
 
-    def run_pflotran(self, num_procs=4):
-        input_files = glob.glob('./output/ratio_calculation_*.in')
+        bash_code = """
+#!/bin/bash
+mkdir -p ./pflotran_output
 
-        with ProcessPoolExecutor(max_workers=num_procs) as executor:
-            results = list(executor.map(self.run_simulation, input_files))
+for infile in ./src/RatioCalculation/output/ratio_calculation_*.in; do
+  echo "Running pflotran on $infile..."
+  mpirun -n 1 /home/wwy/pflotran/src/pflotran/pflotran -input_prefix "${infile%.*}"
 
-        print("All simulations completed and results moved to ./pflotran_output/")
+done
+
+find ./src/RatioCalculation/output -type f -name "ratio_calculation_*" ! -name "*.in" -exec mv {} ./pflotran_output/ \;
+
+echo "All simulations completed and results moved to ./pflotran_output/"
+"""
+
+        subprocess.run(['bash', '-c', bash_code], check=True)
+
+    def read_pflotran_result(self, components):
+
+        ratio_results_dir = f'{self.ratio_result_dir}/ratio_calculation_*.h5'
+        file_num = len(glob.glob(ratio_results_dir))
+        self.concentration = np.zeros([file_num, len(components)])
+        
+        for i in range(file_num):
+        
+
+            with h5py.File(f'{self.ratio_result_dir}/ratio_calculation_{i}.h5', 'r') as file:
+            
+                group = file['Time:  1.00000E+02 y/']
+                self.keys = list(group.keys())
+                for key in self.keys:
+                    self.dicData[key] = file['Time:  1.00000E+02 y/'+key][:].reshape(-1)
+            
+                j = 0
+                for component in components:
+                    for key in self.dicData.keys():
+                        if component in key:
+                            self.concentration[i][j] = self.dicData[key][-1]
+                            j += 1
+                            break
 
 
 if __name__ == '__main__':
 
-    ratio_dir = '../RandomSampling/output/lhs_sampled_data.csv'
-    default_script_dir = './input/PFLOTRAN_mixing.in'
-
-    ratio_calculation = RatioEquilibrium(ratio_dir, default_script_dir)
+    ratio_dir = './src/RandomSampling/output/lhs_sampled_data.csv'
+    default_script_dir = './src/RatioCalculation/input/PFLOTRAN_mixing.in'
+    ratio_results_dir = './src/RatioCalculation/pflotran_output'
+    components = ['pH', 'pe', 'Al+++', 'CO3--', 'Ca++', 'Cl-', 'Fe++', 'H4(SiO4)', 'K+', 'Mg++', 'Na+', 'SO4--', 'UO2++']
+    
+    ratio_calculation = RatioEquilibrium(ratio_dir, default_script_dir, ratio_results_dir)
 
     ratio_calculation.read_ratio()
     ratio_calculation.write_script()
     ratio_calculation.run_pflotran()
+    ratio_calculation.read_pflotran_result(components)
+
+    print(ratio_calculation.concentration)
 

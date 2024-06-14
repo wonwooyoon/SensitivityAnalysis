@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9c578668-db19-4d4e-9cbb-d89f97a1dbde" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/RatioCalculation/RatioScriptGenerator.py" afterDir="false" />
+    <list default="true" id="0dcc30ea-7175-47e2-806b-d2c9a6a517f4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/RatioCalculation/POSP_02_TECBLOCK2EXCEL_1D.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/SensitivityAnalysis.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SensitivityAnalysis.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RandomSampling/RandomSampling.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/RandomSampling/RandomSampling.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RatioCalculation/RatioScriptGenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/RatioCalculation/RatioScriptGenerator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RatioCalculation/input/PFLOTRAN_mixing.in" beforeDir="false" afterPath="$PROJECT_DIR$/src/RatioCalculation/input/PFLOTRAN_mixing.in" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,34 +31,28 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 2
+  &quot;associatedIndex&quot;: 4
 }</component>
-  <component name="ProjectId" id="2ho2OeiLaX2MGgTKFEyXcE2V8Ue" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2hp6CvdTFtRZT74I0q979HpmXzG" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Python.RandomSampling.executor": "Run",
-    "Python.RatioScriptGenerator.executor": "Debug",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "D:/WWY/Personal/0. Paperwork/3. ML_sensitivity_analysis/2. Models/Codes/SA_pf",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.POSP_02_TECBLOCK2EXCEL_1D.executor&quot;: &quot;Run&quot;,
+    &quot;Python.RatioScriptGenerator.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="\\wsl$\Ubuntu\home\wwy\pflotran_sensitivity_analysis\SensitivityAnalysis\src\RandomSampling" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="\\wsl$\Ubuntu\home\wwy\pflotran_sensitivity_analysis\SensitivityAnalysis\src" />
+      <recent name="\\wsl.localhost\Ubuntu\home\wwy\pflotran_sensitivity_analysis\SensitivityAnalysis\src\RatioCalculation" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -66,23 +65,12 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="9c578668-db19-4d4e-9cbb-d89f97a1dbde" name="Changes" comment="" />
-      <created>1718246079893</created>
+      <changelist id="0dcc30ea-7175-47e2-806b-d2c9a6a517f4" name="Changes" comment="" />
+      <created>1718278547864</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1718246079893</updated>
+      <updated>1718278547864</updated>
     </task>
     <servers />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/RatioCalculation/RatioScriptGenerator.py</url>
-          <line>67</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
