@@ -3,6 +3,7 @@ import csv
 import subprocess
 import h5py
 import glob
+import pandas as pd
 
 
 class RatioEquilibrium:
@@ -91,8 +92,13 @@ echo "All simulations completed and results moved to ./src/RatioCalculation/outp
                             self.concentration[i][j] = self.dicData[key][-1]
                             j += 1
                             break
+            
+        with open('./src/RatioCalculation/output/mixed_components.csv', 'w', newline='') as file:
+            
+            df = pd.DataFrame(self.concentration, columns=components)
+            df.to_csv(f'{self.ratio_result_dir}/mixed_components.csv', index=False, header=False)
 
-
+            
 if __name__ == '__main__':
 
     ratio_dir = './src/RandomSampling/output/lhs_sampled_data.csv'
@@ -106,6 +112,4 @@ if __name__ == '__main__':
     ratio_calculation.write_script()
     ratio_calculation.run_pflotran()
     ratio_calculation.read_pflotran_result(components)
-
-    print(ratio_calculation.concentration)
 
