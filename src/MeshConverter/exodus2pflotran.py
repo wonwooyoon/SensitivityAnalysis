@@ -253,9 +253,9 @@ def exodus_to_pflotran_mesh(infilename, outfilename):
 if __name__ == "__main__":
     
     exodus_path = './src/MeshConverter/input/ML_sensitivity_analysis.e'
-    hdf_path = './src/MeshConverter/output/ML_sensitivity_analysis.h5'
+    hdf_path = './src/RunPFLOTRAN/input/ML_sensitivity_analysis.h5'
     sideset_dataset_path = ['/Regions/Sideset1', '/Regions/Sideset2']
-    ascii_file_path = ['./src/MeshConverter/output/sideset1.ss', './src/MeshConverter/output/sideset2.ss']
+    ascii_file_path = ['./src/RunPFLOTRAN/input/sideset1.ss', './src/RunPFLOTRAN/input/sideset2.ss']
     material_dataset_path = '/Materials/Material Ids'
     
     exodus_to_pflotran_mesh(exodus_path, hdf_path)
@@ -275,5 +275,5 @@ if __name__ == "__main__":
 
     for key in material_dic.keys():
         writer = ASCIIWriterMaterial(material_dic[key])
-        writer.save_to_file(f'./src/MeshConverter/output/{key}.txt')
+        writer.save_to_file(f'./src/RunPFLOTRAN/input/{key}.txt')
 

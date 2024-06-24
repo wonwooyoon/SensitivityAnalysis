@@ -52,7 +52,7 @@ class RatioEquilibrium:
         self.ratios[:, 0] = data[:, -1]
         self.ratios[:, 1] = 1 - data[:, -1]
 
-    def run_pflotran(self):
+    def run_pflotran_ratio(self):
 
         bash_code = """
 #!/bin/bash
@@ -110,6 +110,6 @@ if __name__ == '__main__':
 
     ratio_calculation.read_ratio()
     ratio_calculation.write_script()
-    ratio_calculation.run_pflotran()
+    ratio_calculation.run_pflotran_ratio()
     ratio_calculation.read_pflotran_result(components)
 

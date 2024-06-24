@@ -288,7 +288,7 @@ CHEMISTRY
 END
 
 GRID
-  TYPE UNSTRUCTURED ML_sensitivity_analysis_new.h5
+  TYPE UNSTRUCTURED ML_sensitivity_analysis.h5
 END
 
 FLUID_PROPERTY
@@ -333,12 +333,12 @@ CHARACTERISTIC_CURVES default
 END
 
 OUTPUT
-  PERIODIC TIME 0.5 yr
+  PERIODIC TIME 10 yr
   FORMAT TECPLOT BLOCK
 END
 
 TIME
-  FINAL_TIME 1 yr
+  FINAL_TIME 10000 yr
 END
 
 REGION all
@@ -547,5 +547,5 @@ UO2++ 9.970452279486753e-21 T
 /
   
 STRATA
-  FILE ML_sensitivity_analysis_new.h5
+  FILE ML_sensitivity_analysis.h5
 END

@@ -82,7 +82,7 @@ def change_input(default_filename, output_filename, updated_data, components):
 if __name__ == "__main__":
 
     default_file_path = './src/PFLOTRANScriptGenerator/input/base_code.txt'
-    output_filename_base = './src/PFLOTRANScriptGenerator/output/sample'
+    output_filename_base = './src/RunPFLOTRAN/input/sample'
     components_path = './src/RatioCalculation/output/mixed_components.csv'
     updated_data_path = './src/RandomSampling/output/lhs_sampled_data.csv'
 
@@ -96,5 +96,5 @@ if __name__ == "__main__":
     
     for idx, row in enumerate(data):
         updated_data = row
-        output_filename = f'{output_filename_base}_{idx + 1}'
+        output_filename = f'{output_filename_base}_{idx + 1}.in'
         change_input(default_file_path, output_filename, updated_data, components[idx, :])
