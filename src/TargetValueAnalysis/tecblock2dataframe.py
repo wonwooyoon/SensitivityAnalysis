@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.interpolate import griddata
 
 class TECBLOCK2EXCEL:
 
@@ -57,7 +59,7 @@ class TECBLOCK2EXCEL:
         for value in vector:
             if '-' in value:
                 exponent = float(value.split('-')[-1])
-                if exponent >= 20:
+                if exponent >= 30:
                     processed_vector.append(0.0)
                 else:
                     processed_vector.append(float(value))
@@ -86,25 +88,58 @@ class TECBLOCK2EXCEL:
             self.mesh_coord[i, 1] = y_avg/8
             self.mesh_coord[i, 2] = z_avg/8
 
-    def SaveAsDataFrame(self):
+    def SaveAsDataFrame(self, outputfilepath):
 
         combined_data = np.hstack((self.mesh_coord, self.variables_data))
         headers = self.variables
         self.df = pd.DataFrame(combined_data, columns=headers)
 
         print(self.df)
+
+        self.df.to_csv(outputfilepath, index=False)
+
+    def plot_spatial_data_2d(self, data_column_index, fig_outputfilepath):
+        x = self.df.iloc[:, 0]
+        y = self.df.iloc[:, 1]
+        data = self.df.iloc[:, data_column_index]
+        
+        # 그리드 생성
+        grid_x, grid_y = np.mgrid[x.min():x.max():100j, y.min():y.max():100j]
+        
+        # 데이터 보간
+        grid_data = griddata((x, y), data, (grid_x, grid_y), method='cubic')
+        
+        # 2D 플롯 생성
+        plt.figure(figsize=(10, 8))
+        plt.imshow(grid_data.T, extent=(x.min(), x.max(), y.min(), y.max()), origin='lower', cmap='viridis')
+        plt.colorbar(label='Data Value')
+        
+        # 축 레이블 설정
+        plt.xlabel('X Coordinate')
+        plt.ylabel('Y Coordinate')
+        
+        # 플롯 제목 설정
+        plt.title('Spatial Data Distribution')
+        
+        # 플롯을 파일로 저장
+        plt.savefig(fig_outputfilepath)
+        print(f'Plot saved to {fig_outputfilepath}')
+        plt.close()
         
 
 
 if __name__ == '__main__':
 
-    inputfilepath = './src/TargetValueAnalysis/input/sample_2-002.tec'
+    inputfilepath = './src/TargetValueAnalysis/input/RR-STD-01-003.tec'
     outputfilepath = './src/TargetValueAnalysis/output/mesh_centered_data.csv'
+    fig_outputfilepath = './src/TargetValueAnalysis/output/plot.png'
 
     converter = TECBLOCK2EXCEL(inputfilepath)
     converter.ReadVariables()
     converter.ReadNodeNum()
     converter.ReadData()
     converter.CalculateMesh()
-    converter.SaveAsDataFrame()
+    converter.SaveAsDataFrame(outputfilepath)
+    converter.plot_spatial_data_2d(5, fig_outputfilepath)
+    
 
