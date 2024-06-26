@@ -8,7 +8,7 @@ mkdir -p ./src/RunPFLOTRAN/output
 
 for infile in ./src/RunPFLOTRAN/input/sample_*.in; do
   echo "Running pflotran on $infile..."
-  mpirun -n 12 /home/wwy/pflotran/src/pflotran/pflotran -input_prefix "${infile%.*}"
+  mpirun -n 6 /home/wwy/pflotran/src/pflotran/pflotran -input_prefix "${infile%.*}"
   
   find "${infile%.*}".* ! -name "*.in" -exec mv {} ./src/RunPFLOTRAN/output/ \;
 

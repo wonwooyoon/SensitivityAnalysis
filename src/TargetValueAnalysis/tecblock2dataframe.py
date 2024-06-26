@@ -103,25 +103,19 @@ class TECBLOCK2EXCEL:
         y = self.df.iloc[:, 1]
         data = self.df.iloc[:, data_column_index]
         
-        # 그리드 생성
-        grid_x, grid_y = np.mgrid[x.min():x.max():100j, y.min():y.max():100j]
+        grid_x, grid_y = np.mgrid[x.min():x.max():500j, y.min():y.max():500j]
         
-        # 데이터 보간
-        grid_data = griddata((x, y), data, (grid_x, grid_y), method='cubic')
+        grid_data = griddata((x, y), data, (grid_x, grid_y), method='linear')
         
-        # 2D 플롯 생성
         plt.figure(figsize=(10, 8))
         plt.imshow(grid_data.T, extent=(x.min(), x.max(), y.min(), y.max()), origin='lower', cmap='viridis')
         plt.colorbar(label='Data Value')
         
-        # 축 레이블 설정
         plt.xlabel('X Coordinate')
         plt.ylabel('Y Coordinate')
         
-        # 플롯 제목 설정
         plt.title('Spatial Data Distribution')
         
-        # 플롯을 파일로 저장
         plt.savefig(fig_outputfilepath)
         print(f'Plot saved to {fig_outputfilepath}')
         plt.close()
@@ -130,7 +124,7 @@ class TECBLOCK2EXCEL:
 
 if __name__ == '__main__':
 
-    inputfilepath = './src/TargetValueAnalysis/input/RR-STD-01-003.tec'
+    inputfilepath = './src/TargetValueAnalysis/input/sample_1-010.tec'
     outputfilepath = './src/TargetValueAnalysis/output/mesh_centered_data.csv'
     fig_outputfilepath = './src/TargetValueAnalysis/output/plot.png'
 
@@ -140,6 +134,6 @@ if __name__ == '__main__':
     converter.ReadData()
     converter.CalculateMesh()
     converter.SaveAsDataFrame(outputfilepath)
-    converter.plot_spatial_data_2d(5, fig_outputfilepath)
+    converter.plot_spatial_data_2d(19, fig_outputfilepath)
     
 
