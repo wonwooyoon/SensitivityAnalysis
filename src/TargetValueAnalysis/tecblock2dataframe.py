@@ -103,7 +103,7 @@ class TECBLOCK2EXCEL:
         y = self.df.iloc[:, 1]
         data = self.df.iloc[:, data_column_index]
         
-        grid_x, grid_y = np.mgrid[x.min():x.max():500j, y.min():y.max():500j]
+        grid_x, grid_y = np.mgrid[x.min():x.max():1000j, y.min():y.max():1000j]
         
         grid_data = griddata((x, y), data, (grid_x, grid_y), method='linear')
         
@@ -124,7 +124,7 @@ class TECBLOCK2EXCEL:
 
 if __name__ == '__main__':
 
-    inputfilepath = './src/TargetValueAnalysis/input/sample_1-010.tec'
+    inputfilepath = './src/TargetValueAnalysis/input/sample_1-044.tec'
     outputfilepath = './src/TargetValueAnalysis/output/mesh_centered_data.csv'
     fig_outputfilepath = './src/TargetValueAnalysis/output/plot.png'
 
@@ -134,6 +134,6 @@ if __name__ == '__main__':
     converter.ReadData()
     converter.CalculateMesh()
     converter.SaveAsDataFrame(outputfilepath)
-    converter.plot_spatial_data_2d(19, fig_outputfilepath)
+    converter.plot_spatial_data_2d(80, fig_outputfilepath)
     
 
