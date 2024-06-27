@@ -475,7 +475,7 @@ CONSTRAINT granite_conc
   /
   MINERALS
     Smectite_MX80 	0.0	1e2 	m^2/m^3
-    InertMineral 0.74 0.0 m^2/m^3
+    InertMineral 0.65 0.0 m^2/m^3
     Quartz		0.25	0.05 	m^2/g
     Gypsum		0.0	1e2 	m^2/m^3
     Pyrite		0.0	1e2 	m^2/m^3
