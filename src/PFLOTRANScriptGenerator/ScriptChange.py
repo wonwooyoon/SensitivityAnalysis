@@ -25,7 +25,7 @@ def change_input(default_filename, output_filename, updated_data, components):
         if 'CONSTRAINT bentonite_conc' in line:
             bentonite_mineral_target = i + 17
         if 'CONSTRAINT granite_conc' in line:
-            granite_mineral_target = i + 20
+            granite_mineral_target = i + 21
         if 'LIQUID_PRESSURE 561325.d0' in line:
             pressure_grad_target = i
         if 'CONSTRAINT seawater_conc' in line:
@@ -34,10 +34,11 @@ def change_input(default_filename, output_filename, updated_data, components):
             intrusion_range = i
 
     density_based_porosity = 1 - (updated_data[1]/2750)
-    density_based_smectite = 0.87 * (1-density_based_porosity)
-    density_based_quartz = 0.05 * (1-density_based_porosity)
-    density_based_gypsum = 0.007 * (1-density_based_porosity)
-    density_based_pyrite = 0.0007 * (1-density_based_porosity) * updated_data[3]
+    density_based_smectite = 0.806 * (1-density_based_porosity)
+    density_based_inert = 0.106 * (1-density_based_porosity)
+    density_based_quartz = 0.0488 * (1-density_based_porosity)
+    density_based_gypsum = 0.00782 * (1-density_based_porosity)
+    density_based_pyrite = 0.00036 * (1-density_based_porosity) * updated_data[3]
 
     if fracture_perm_target is not None:
         lines[fracture_perm_target] = f'    PERM_ISO {updated_data[0]} ! unit: m^2\n'
@@ -51,9 +52,10 @@ def change_input(default_filename, output_filename, updated_data, components):
     if bentonite_mineral_target is not None:
 
         lines[bentonite_mineral_target] = f'    Smectite_MX80 	{density_based_smectite}	8.5 	m^2/g\n'
-        lines[bentonite_mineral_target+1] = f'    Quartz		{density_based_quartz}	0.05 	m^2/g\n'
-        lines[bentonite_mineral_target+2] = f'    Gypsum		{density_based_gypsum}	0.05 	m^2/g\n'
-        lines[bentonite_mineral_target+3] = f'    Pyrite		{density_based_pyrite}	0.05 	m^2/g\n'
+        lines[bentonite_mineral_target+1] = f'    InertMineral		{density_based_inert}	0.0 	m^2/m^3\n'
+        lines[bentonite_mineral_target+2] = f'    Quartz		{density_based_quartz}	0.05 	m^2/g\n'
+        lines[bentonite_mineral_target+3] = f'    Gypsum		{density_based_gypsum}	0.05 	m^2/g\n'
+        lines[bentonite_mineral_target+4] = f'    Pyrite		{density_based_pyrite}	0.05 	m^2/g\n'
 
     if granite_mineral_target is not None:
 
